@@ -12,7 +12,7 @@
             </p>
             <p>
               <small>
-                <a href="https://github.com/yusufsiregar44/blawgV.0" style="color:#3273dc">blawgV.0</a> is licensed under <a href="http://opensource.org/licenses/mit-license.php" style="color:#3273dc">MIT</a>
+                <a href="https://github.com/yusufsiregar44/8Times" style="color:#3273dc">8Times</a> is licensed under <a href="http://opensource.org/licenses/mit-license.php" style="color:#3273dc">MIT</a>
               </small>
             </p>
           </div>
