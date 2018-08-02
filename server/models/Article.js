@@ -16,7 +16,7 @@ const articleSchema = Schema({
   },
   mediaURI: {
     type: String,
-    // required: true,
+    required: true,
   },
   author: {
     type: String,

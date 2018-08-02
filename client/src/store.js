@@ -21,6 +21,28 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    addNewArticle(context, payload) {
+      let self = this;
+      let file = payload.file;
+      let storageRef = firebaseStorage.ref(file.name);
+      storageRef.put(file)
+      .then((snapshot) => {
+        snapshot.ref.getDownloadURL()
+          .then(uri => {
+            return axios.post(`${serverAddress}/articles`, {
+              title: payload.title,
+              content: payload.content,
+              category: payload.category,
+              mediaURI: uri,
+              author: self.state.userInfo.userID
+            }, {
+                'headers': {
+                  'token': localStorage.token,
+                },
+              });
+          });
+      });
+    },
     decodeToken({ commit }) {
       if (localStorage.token) {
         axios.get(`${serverAddress}/authentication`, {

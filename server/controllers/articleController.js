@@ -11,6 +11,7 @@ class ArticleController {
       // author field will be changed with req.header.token which will then be decryppted to obtain _id pf user
     }, function (err, response) {
       if (err) {
+        console.log(err);
         res
           .status(400)
           .send(err);
