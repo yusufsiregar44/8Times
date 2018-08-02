@@ -10,9 +10,9 @@ router.get('/', articleController.readAll);
 
 router.get('/:id', articleController.readById);
 
-router.get('/:category', articleController.readByCategory);
+router.get('/category/:category', articleController.readByCategory);
 
-router.get('/:author', articleController.readByAuthor);
+router.get('/author/:authorID', articleController.readByAuthor);
 
 router.put('/:id', authentication.verifyToken, articleController.updateById);
 

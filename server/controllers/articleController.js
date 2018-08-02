@@ -7,8 +7,8 @@ class ArticleController {
       content: req.body.content,
       category: req.body.category,
       mediaURI: req.body.mediaURI,
-      writer: req.body.writer,
-      // writer field will be changed with req.header.token which will then be decryppted to obtain _id pf user
+      author: req.body.author,
+      // author field will be changed with req.header.token which will then be decryppted to obtain _id pf user
     }, function (err, response) {
       if (err) {
         res
@@ -65,7 +65,7 @@ class ArticleController {
   }
 
   static readByAuthor(req, res) {
-    Article.find({author: req.params.author}, function (err, response) {
+    Article.find({author: req.params.authorID}, function (err, response) {
       if (err) {
         res
           .status(400)
@@ -80,11 +80,9 @@ class ArticleController {
 
   static updateById(req, res) {
     Article.findByIdAndUpdate(req.params.id, {
-      title: req.body.title,
-      content: req.body.content,
-      category: req.body.category,
-      mediaURI: req.body.mediaURI,
-      writer: req.body.writer,
+      $set: req.body,
+    }, {
+      new: true
     }, function (err, response) {
       if (err) {
         res
