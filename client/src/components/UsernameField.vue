@@ -1,8 +1,8 @@
 <template lang="html">
-  <b-field label="Email">
+  <b-field label="Username">
       <b-input
-          type="email"
-          placeholder="Your email"
+          type="username"
+          placeholder="Your username"
           required
           v-model="content"
           @input="handleInput"

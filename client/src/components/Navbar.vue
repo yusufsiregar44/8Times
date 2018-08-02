@@ -4,8 +4,8 @@
       <div class="navbar-brand">
         <router-link :to="`/`">
         <a class="navbar-item">
-            <i class="fab fa-pied-piper-pp" style="font-size:37px; margin-right:10px; color:#363636"></i>
-            <h1 class="title">blawgV.0</h1>
+            <i class="fas fa-lightbulb" style="font-size:37px; margin-right:10px; color:#363636"></i>
+            <h1 class="title">8Times</h1>
         </a>
       </router-link>
         <span class="navbar-burger burger" data-target="navbarMenuHeroB">
@@ -16,7 +16,7 @@
       </div>
       <div class="navbar-menu">
         <div class="navbar-end">
-          <a class="navbar-item" v-if="readerIsLoggedIn === false && writerIsLoggedIn === false">
+          <a class="navbar-item">
             <a class="button is-inverted" @click="isLoginModalActive = true">
               <span class="icon">
                 <i class="fas fa-sign-in-alt"></i>
@@ -30,7 +30,7 @@
 
             <p style="margin-right: 10px; margin-left: 10px;">or</p>
 
-            <a class="button is-inverted" @click="isRegisterModalActive = true;">
+            <a class="button is-inverted" @click="isRegisterModalActive = true">
               <span class="icon">
                 <i class="fas fa-registered"></i>
               </span>
@@ -42,14 +42,14 @@
             </b-modal>
           </a>
 
-          <a class="navbar-item" v-if="readerIsLoggedIn === true || writerIsLoggedIn === true">
+          <!-- <a class="navbar-item" v-if="readerIsLoggedIn === true || writerIsLoggedIn === true">
              <a class="button is-inverted" @click="logout">
                <span class="icon">
                  <i class="fas fa-sign-out-alt"></i>
                </span>
                <span>Logout</span>
              </a>
-          </a>
+          </a> -->
 
         </div>
       </div>
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+// import { mapState } from 'vuex';
 // import { mapActions } from 'vuex';
 import RegisterModal from '../components/RegisterModal.vue'
 import LoginModal from '../components/LoginModal.vue'
@@ -72,30 +72,30 @@ export default {
   },
   data() {
     return {
-      email: '',
-      password: '',
+      username: null,
+      password: null,
       isRegisterModalActive: false,
       isLoginModalActive: false,
     };
   },
   computed: {
-    ...mapState([ 'readerIsLoggedIn', 'writerIsLoggedIn' ])
+    // ...mapState([ 'readerIsLoggedIn', 'writerIsLoggedIn' ])
   },
   methods: {
-    logout() {
-      localStorage.clear();
-      this.$store.commit('assignReaderIsLoggedIn', false);
-      this.$store.commit('assignWriterIsLoggedIn', false);
-      this.$store.commit('assignUsername', null);
-      this.$store.commit('assignUserID', null);
-      this.$toast.open({
-          duration: 1000,
-          message: 'Successfully logged out',
-          position: 'is-top',
-          type: 'is-success',
-      });
-      this.$router.push({ name: 'home', query: { redirect: '/' } })
-    },
+  //   logout() {
+  //     localStorage.clear();
+  //     this.$store.commit('assignReaderIsLoggedIn', false);
+  //     this.$store.commit('assignWriterIsLoggedIn', false);
+  //     this.$store.commit('assignUsername', null);
+  //     this.$store.commit('assignUserID', null);
+  //     this.$toast.open({
+  //         duration: 1000,
+  //         message: 'Successfully logged out',
+  //         position: 'is-top',
+  //         type: 'is-success',
+  //     });
+  //     this.$router.push({ name: 'home', query: { redirect: '/' } })
+  //   },
   },
 }
 </script>

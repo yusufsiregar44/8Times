@@ -6,16 +6,14 @@
     </header>
     <section class="modal-card-body">
 
-      <NameField @input="updateName"></NameField>
-
-      <EmailField @input="updateEmail"></EmailField>
+      <UsernameField @input="updateUsername"></UsernameField>
 
       <PasswordField @input="updatePassword"></PasswordField>
 
     </section>
     <footer class="modal-card-foot">
       <div class="container">
-        <button class="button is-success" @click="registerUser()">Register</button>
+        <button class="button is-success" @click="registerUser">Register</button>
       </div>
     </footer>
   </div>
@@ -23,45 +21,42 @@
 </template>
 
 <script>
-import EmailField from '../components/EmailField.vue';
 import PasswordField from '../components/PasswordField.vue';
-import NameField from '../components/NameField.vue';
-import { mapActions } from 'vuex';
+import UsernameField from '../components/UsernameField.vue';
+import  serverAddress from '../helpers/serverAddress.js'
+import axios from 'axios'
 
 export default {
   data() {
     return {
-      name: null,
-      email: null,
-      password: null,
+      username: '',
+      password: '',
     };
   },
   components: {
-    EmailField,
     PasswordField,
-    NameField,
+    UsernameField,
   },
   methods: {
-    ...mapActions([ 'register' ]),
-    updateEmail(e) {
-      this.email = e;
-    },
     updatePassword(e) {
       this.password = e;
     },
-    updateName(e) {
-      this.name = e;
+    updateUsername(e) {
+      this.username = e;
     },
     registerUser() {
-      if (this.password.length < 8) {
+      if (this.password.length < 8 || this.username.length < 8) {
         this.$toast.open({
           duration: 2500,
-          message: 'Oops. something went wrong. Password length must be at least 8 characters',
+          message: 'Oops. something went wrong. Password and/or Username length must be at least 8 characters',
           position: 'is-top',
           type: 'is-danger'
         });
       } else {
-        this.register({name: this.name, email: this.email, password: this.password})
+        axios.post(`${serverAddress}/users/register`, {
+          username: this.username,
+          password: this.password
+        })
         .then(() => {
           this.$toast.open({
             duration: 2500,
