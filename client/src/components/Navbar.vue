@@ -16,7 +16,7 @@
       </div>
       <div class="navbar-menu">
         <div class="navbar-end">
-          <a class="navbar-item">
+          <a class="navbar-item" v-if="userInfo === null">
             <a class="button is-inverted" @click="isLoginModalActive = true">
               <span class="icon">
                 <i class="fas fa-sign-in-alt"></i>
@@ -42,14 +42,25 @@
             </b-modal>
           </a>
 
-          <!-- <a class="navbar-item" v-if="readerIsLoggedIn === true || writerIsLoggedIn === true">
+          <router-link :to="`/dashboard`">
+            <a class="navbar-item" v-if="userInfo !== null">
+              <a class="button is-inverted">
+                <span class="icon">
+                  <i class="fas fa-user"></i>
+                </span>
+                <span>{{ this.userInfo.username }}</span>
+              </a>
+            </a>
+          </router-link>
+
+          <a class="navbar-item" v-if="userInfo !== null">
              <a class="button is-inverted" @click="logout">
                <span class="icon">
                  <i class="fas fa-sign-out-alt"></i>
                </span>
                <span>Logout</span>
              </a>
-          </a> -->
+          </a>
 
         </div>
       </div>
@@ -58,7 +69,7 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex';
+import { mapState } from 'vuex';
 // import { mapActions } from 'vuex';
 import RegisterModal from '../components/RegisterModal.vue'
 import LoginModal from '../components/LoginModal.vue'
@@ -79,23 +90,20 @@ export default {
     };
   },
   computed: {
-    // ...mapState([ 'readerIsLoggedIn', 'writerIsLoggedIn' ])
+    ...mapState([ 'userInfo' ])
   },
   methods: {
-  //   logout() {
-  //     localStorage.clear();
-  //     this.$store.commit('assignReaderIsLoggedIn', false);
-  //     this.$store.commit('assignWriterIsLoggedIn', false);
-  //     this.$store.commit('assignUsername', null);
-  //     this.$store.commit('assignUserID', null);
-  //     this.$toast.open({
-  //         duration: 1000,
-  //         message: 'Successfully logged out',
-  //         position: 'is-top',
-  //         type: 'is-success',
-  //     });
-  //     this.$router.push({ name: 'home', query: { redirect: '/' } })
-  //   },
+    logout() {
+      localStorage.clear();
+      this.$store.commit('assignUserInfo', null);
+      this.$toast.open({
+          duration: 1000,
+          message: 'Successfully logged out',
+          position: 'is-top',
+          type: 'is-success',
+      });
+      this.$router.push({ name: 'home', query: { redirect: '/' } })
+    },
   },
 }
 </script>
