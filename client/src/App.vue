@@ -23,17 +23,16 @@
 </template>
 
 <script>
-// import { mapActions } from 'vuex';
-//
-// export default {
-//   methods: {
-//     ...mapActions([ 'decodeToken', 'getAllBlogs' ]),
-//   },
-//   created() {
-//     this.decodeToken();
-//     this.getAllBlogs();
-//   },
-// }
+import { mapActions } from 'vuex';
+
+export default {
+  methods: {
+    ...mapActions([ 'decodeToken' ]),
+  },
+  created() {
+    this.decodeToken();
+  },
+}
 </script>
 
 <style lang="scss">

@@ -26,6 +26,7 @@ import UsernameField from '../components/UsernameField.vue'
 import PasswordField from '../components/PasswordField.vue'
 import serverAddress from '../helpers/serverAddress'
 import axios from 'axios'
+import { mapActions } from 'vuex'
 
 export default {
   data() {
@@ -39,7 +40,7 @@ export default {
     PasswordField,
   },
   methods: {
-    // ...mapActions([ 'decodeToken' ]),
+    ...mapActions([ 'decodeToken' ]),
     updateUsername(e) {
       this.username = e;
     },
@@ -51,14 +52,31 @@ export default {
         username: this.username,
         password: this.password,
       })
-      .then(() => {
-        this.$toast.open({
-          duration: 2500,
-          message: 'Successfully logged in',
-          position: 'is-top',
-          type: 'is-success'
-        });
-        this.$parent.close();
+      .then((response) => {
+        localStorage.token = response.data;
+        axios.get(`${serverAddress}/authentication`, {
+          'headers': {
+            'token': localStorage.token,
+          } ,
+        })
+        .then((decoded) => {
+          this.$store.commit('assignUserInfo', ({username: decoded.data.username, userID: decoded.data._id}));
+          this.$toast.open({
+            duration: 2500,
+            message: 'Successfully logged in',
+            position: 'is-top',
+            type: 'is-success'
+          });
+          this.$parent.close();
+        })
+        .catch(() => {
+          this.$toast.open({
+            duration: 2500,
+            message: 'Oops. something went wrong. Please try again',
+            position: 'is-top',
+            type: 'is-danger'
+          });
+        })
       })
       .catch(() => {
         this.$toast.open({
