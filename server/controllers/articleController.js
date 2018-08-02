@@ -23,7 +23,10 @@ class ArticleController {
   }
 
   static readAll(req, res) {
-    Article.find({}, function (err, response) {
+    Article
+    .find({})
+    .populate('author', '-password')
+    .exec(function (err, response) {
       if (err) {
         res
           .status(400)
@@ -37,7 +40,10 @@ class ArticleController {
   }
 
   static readById(req, res) {
-    Article.findById(req.params.id, function (err, response) {
+    Article
+    .findById(req.params.id)
+    .populate('author', '-password')
+    .exec(function (err, response) {
       if (err) {
         res
           .status(400)
@@ -51,7 +57,10 @@ class ArticleController {
   }
 
   static readByCategory(req, res) {
-    Article.find({category: req.params.category}, function (err, response) {
+    Article
+      .find({category: req.params.category})
+      .populate('author', '-password')
+      .exec(function (err, response) {
       if (err) {
         res
           .status(400)
@@ -65,7 +74,10 @@ class ArticleController {
   }
 
   static readByAuthor(req, res) {
-    Article.find({author: req.params.authorID}, function (err, response) {
+    Article
+      .find({author: req.params.authorID})
+      .populate('author', '-password')
+      .exec(function (err, response) {
       if (err) {
         res
           .status(400)
