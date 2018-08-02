@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Navbar></Navbar>
-    <b-tabs position="is-centered" class="block" @change="changeTab">
+    <b-tabs position="is-centered" class="block">
         <b-tab-item label="Critics"></b-tab-item>
         <b-tab-item label="Analysis"></b-tab-item>
         <b-tab-item label="Opinions"></b-tab-item>
@@ -19,14 +19,13 @@
       <ArticlesCard v-for="(article, index) in critics" v-bind:key="index" :article="article"></ArticlesCard>
     </div>
   </div>
-  </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Navbar from '../components/Navbar.vue'
 import axios from 'axios'
-import serverAddress from './helpers/serverAddress.js'
+import serverAddress from '../helpers/serverAddress.js'
 
 // import { mapState } from 'vuex'
 
