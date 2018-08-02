@@ -5,10 +5,11 @@ const bcrypt = require('bcryptjs');
 
 class UserController {
   static register(req, res) {
+    console.log(req);
     bcrypt.hash(req.body.password, 10)
       .then((encryptedPsw) => {
         User.create({
-            Username: req.body.Username,
+            username: req.body.username,
             password: encryptedPsw,
           })
           .then((response) => {
